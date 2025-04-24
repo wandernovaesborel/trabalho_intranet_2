@@ -1,0 +1,37 @@
+trabalho Intranet
+
+Wander Novaes
+wander.nb91@gmail.com
+W@nder50
+
+Wander Proz
+prozwander@gmail.com
+W@nder9090
+
+Teste 01
+teste01@teste.com.br
+
+
+
+Senha de app
+qhks dijw zxja qvrw
+
+
+
+Recuperação de senha
+
+
+
+
+
+
+
+/seu_projeto
+├── app.py
+├── /templates
+│   ├── base.html
+│   ├── dashboard.html
+├── /static
+│   └── procedimento_001.html
+
+

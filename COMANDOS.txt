@@ -1,0 +1,8 @@
+Instale as dependências:
+pip install -r requirements.txt
+
+Execute a aplicação:
+python app.py
+
+Acesse no navegador:
+http://localhost:5000

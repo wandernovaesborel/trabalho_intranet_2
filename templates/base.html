@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema LGPD - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <h1>iNtranet Inspell</h1>
+        <br>
+        <nav>
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('procedimentos') }}">Procedimentos</a>
+                <a href="{{ url_for('favoritos') }}">Favoritos</a>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('my_requests') }}">Minhas Solicitações</a>
+                <a href="{{ url_for('logout') }}">Sair</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Registrar</a>
+            {% endif %}
+            <a href="{{ url_for('privacy') }}">Política de Privacidade</a>
+        </nav>
+    </header>
+    
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <p>Sistema desenvolvido em conformidade com a Lei Geral de Proteção de Dados (LGPD)</p>
+        <p>© 2025 - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        function togglePassword(fieldId, iconElement) {
+            const field = document.getElementById(fieldId);
+            const isPassword = field.type === 'password';
+            field.type = isPassword ? 'text' : 'password';
+
+            // Altera o ícone e o título
+            iconElement.textContent = isPassword ? '🙈' : '👁️';
+            iconElement.title = isPassword ? 'Ocultar senha' : 'Mostrar senha';
+        }
+    </script>
+
+<script>
+    function verificarCriterios() {
+        const senha = document.getElementById('password').value;
+    
+        const criterios = {
+            min: senha.length >= 8,
+            maiuscula: /[A-Z]/.test(senha),
+            minuscula: /[a-z]/.test(senha),
+            numero: /[0-9]/.test(senha),
+            especial: /[!@#$%^&*(),.?":{}|<>]/.test(senha)
+        };
+    
+        for (let id in criterios) {
+            const item = document.getElementById(id);
+            if (criterios[id]) {
+                item.classList.add('valido');
+            } else {
+                item.classList.remove('valido');
+            }
+        }
+    }
+    </script>
+
+<script>
+    function verificarCriterios() {
+        const senha = document.getElementById('password').value;
+    
+        const criterios = {
+            min: senha.length >= 8,
+            maiuscula: /[A-Z]/.test(senha),
+            minuscula: /[a-z]/.test(senha),
+            numero: /[0-9]/.test(senha),
+            especial: /[!@#$%^&*(),.?":{}|<>]/.test(senha)
+        };
+    
+        for (let id in criterios) {
+            const item = document.getElementById(id);
+            if (criterios[id]) {
+                item.classList.add('valido');
+            } else {
+                item.classList.remove('valido');
+            }
+        }
+    
+        verificarConfirmacaoSenha(); // atualiza a confirmação ao digitar a senha
+    }
+    
+    function verificarConfirmacaoSenha() {
+        const senha = document.getElementById('password').value;
+        const confirm = document.getElementById('confirm_password').value;
+        const mensagem = document.getElementById('mensagem-confirmacao');
+    
+        if (confirm === "") {
+            mensagem.className = "";
+            mensagem.textContent = "🔒 As senhas devem coincidir.";
+        } else if (senha === confirm) {
+            mensagem.className = "ok";
+            mensagem.textContent = "✅ As senhas coincidem.";
+        } else {
+            mensagem.className = "erro";
+            mensagem.textContent = "❌ As senhas não coincidem.";
+        }
+    }
+    </script>
+    
+</body>
+</html>
